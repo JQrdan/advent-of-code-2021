@@ -43,20 +43,37 @@ const drawMap = (map) => {
 
 const isStraightLine = (p1, p2) => p1.x === p2.x || p1.y === p2.y;
 
-const fillDiagonalLine = (line) => {
+const fillArray = (start, end) => {
+  const result = [];
+  if(start < end) {
+    // increase
+    for(let i = start; i <= end; i++) {
+      result.push(i);
+    }
+  } else {
+    // decrease
+    for(let i = start; i >= end; i--) {
+      result.push(i);
+    }
+  }
+  return result;
+}
+
+const fillLine = (line) => {
   const x1 = line[0].x;
   const y1 = line[0].y;
   const x2 = line[1].x;
   const y2 = line[1].y;
 
-  let xs = [];
-  let ys = [];
-
+  let xs = fillArray(x1, x2);
+  let ys = fillArray(y1, y2);
 
   // zip
-  return xs.map(function(e, i) {
+  const zipped = xs.map(function(e, i) {
     return [e, ys[i]];
   });
+
+  return zipped;
 }
 
 const fillStraightLine = (line) => {
@@ -115,23 +132,56 @@ const addLineToMap = ((map, line) => {
   return map;
 });
 
-const {x, y} = getBoundaries(lines);
-let map = createMap(x, y);
-
-lines.forEach(line => {
-  if(isStraightLine(line[0], line[1])) {
-    const fullLine = fillStraightLine(line);
-    map = addLineToMap(map, fullLine);
-  }
-});
-
-let overlaps = 0;
-map.forEach(row => {
-  row.forEach(cell => {
-    if (cell > 1) {
-      overlaps++;
+const part1 = (lines) => {
+  const {x, y} = getBoundaries(lines);
+  let map = createMap(x, y);
+  
+  lines.forEach(line => {
+    let fullLine;
+    if(isStraightLine(line[0], line[1])) {
+      fullLine = fillStraightLine(line);
+      map = addLineToMap(map, fullLine);
     }
-  })
-});
+  });
+  
+  let overlaps = 0;
+  map.forEach(row => {
+    row.forEach(cell => {
+      if (cell > 1) {
+        overlaps++;
+      }
+    })
+  });
 
-console.log(`Overlaps: ${overlaps}`);
+  console.log(`Part 1 overlaps: ${overlaps}`);
+}
+
+const part2 = (lines) => {
+  const {x, y} = getBoundaries(lines);
+  let map = createMap(x, y);
+  
+  lines.forEach(line => {
+    let fullLine;
+    if(isStraightLine(line[0], line[1])) {
+      fullLine = fillStraightLine(line);
+      map = addLineToMap(map, fullLine);
+    } else {
+      fullLine = fillLine(line);
+      map = addLineToMap(map, fullLine);
+    }
+  });
+  
+  let overlaps = 0;
+  map.forEach(row => {
+    row.forEach(cell => {
+      if (cell > 1) {
+        overlaps++;
+      }
+    })
+  });
+
+  console.log(`Part 2 overlaps: ${overlaps}`);
+}
+
+part1(lines);
+part2(lines);
