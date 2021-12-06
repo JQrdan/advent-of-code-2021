@@ -9,3 +9,5 @@
 - [Day 4 Puzzle](https://adventofcode.com/2021/day/4) - [Both Solutions](./day4/bothParts.js)
 
 - [Day 5 Puzzle](https://adventofcode.com/2021/day/5) - [Part 1 Solution](./day5/part1.js)
+
+- [Day 6 Puzzle](https://adventofcode.com/2021/day/6) - [Both Solutions](./day6/bothParts.js)
