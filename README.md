@@ -11,3 +11,5 @@
 - [Day 5 Puzzle](https://adventofcode.com/2021/day/5) - [Both Solutions](./day5/bothParts.js)
 
 - [Day 6 Puzzle](https://adventofcode.com/2021/day/6) - [Both Solutions](./day6/bothParts.js)
+
+- [Day 7 Puzzle](https://adventofcode.com/2021/day/7) - [Part 1 Solution](./day7/part1.js) - [Part 2 Solution](./day7/part2.js)
